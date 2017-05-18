@@ -1,0 +1,110 @@
+﻿@model Khuluma_Server.Models.AppUserModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h4>Member Details</h4>
+
+<div>
+    <h2>@Html.DisplayFor(model => model.Name) @Html.DisplayFor(model => model.Surname)</h2>
+
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table">
+                
+                <tbody>
+                    
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Group.GroupName)</th>
+                        <td>@Html.DisplayFor(model => model.Group.GroupName)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Location.HospitalName)</th>
+                        <td>@Html.DisplayFor(model => model.Location.HospitalName)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Username)</th>
+                        <td>@Html.DisplayFor(model => model.Username)</td>
+                    </tr>
+                    
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Age)</th>
+                        <td>@Html.DisplayFor(model => model.Age)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.PhoneNumber)</th>
+                        <td>@Html.DisplayFor(model => model.PhoneNumber)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Email)</th>
+                        <td>@Html.DisplayFor(model => model.Email)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.HomeAddress)</th>
+                        <td>@Html.DisplayFor(model => model.HomeAddress)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.ParticipantId)</th>
+                        <td>@Html.DisplayFor(model => model.ParticipantId)</td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+
+    <dl class="dl-horizontal">
+  
+
+        <dd>
+            
+        </dd>
+
+        <dt>
+           
+        </dt>
+
+        <dd>
+            
+        </dd>
+
+        <dt>
+            
+        </dt>
+
+        <dd>
+            
+        </dd>
+
+        <dt>
+            
+        </dt>
+
+        <dd>
+            
+        </dd>
+
+        <dt>
+            
+        </dt>
+
+        <dd>
+           
+        </dd>
+
+        <dt>
+            
+        </dt>
+
+        <dd>
+            
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

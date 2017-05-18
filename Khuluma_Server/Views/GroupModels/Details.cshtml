@@ -1,0 +1,95 @@
+﻿@model Khuluma_Server.Models.ViewModels.GroupDetailsViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Group Details</h2>
+
+<div>
+    <h4>@Html.DisplayFor(model => model.GroupName)</h4>
+    <hr />
+    <dl class="dl-horizontal">
+  
+        <div>
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#members" aria-controls="members" role="tab" data-toggle="tab">Members</a></li>
+                <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="members">
+                    @if (Model.GroupMembers.Any())
+                    {
+
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Location</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var member in Model.GroupMembers)
+                                {
+                                    <tr>
+                                        <td>@member.ParticipantId</td>
+                                        <td>@member.Name</td>
+                                        <td>@member.Location</td>
+                                        <td>@Html.ActionLink("View", "Details", "AppUserModels", new { id = member.ID }, null)</td>
+                                    </tr>
+
+                                }
+                            </tbody>
+
+                        </table>
+                    }
+                </div>
+                <div role="tabpanel" class="tab-pane" id="messages">
+                    @if (Model.ChatMessageList.Any())
+                    {
+
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Message</th>
+                                    <th>Time</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var chat in Model.ChatMessageList)
+                                {
+                                    <tr>
+                                        <td>@chat.Name</td>
+                                        <td>@chat.Message</td>
+                                        <td>@chat.TimeStamp.ToString();</td>
+
+                                    </tr>
+
+                                }
+                            </tbody>
+
+                        </table>
+                    }
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+       
+
+
+
+    </dl>
+</div>
+

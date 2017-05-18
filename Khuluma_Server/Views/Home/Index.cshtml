@@ -1,0 +1,85 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        
+        @(Html.EJ().Grid<Khuluma_Server.Models.ViewModels.DashboardGroupViewModel>("Grid")
+        .Datasource((IEnumerable<Khuluma_Server.Models.ViewModels.DashboardGroupViewModel>)ViewBag.groups)
+        .AllowPaging()
+        .AllowGrouping()
+        .AllowFiltering()
+
+        .FilterSettings(d => d.FilterType(FilterType.FilterBar))
+        .AllowSelection()
+        .SelectionType(SelectionType.Single)
+        .SelectionSettings(select => { select.SelectionMode(mode => { mode.AddMode(SelectionMode.Row); }); })
+        .ClientSideEvents(eve => { eve.ToolbarClick("onToolBarClick"); })
+        .ClientSideEvents(eve => { eve.RecordClick("onRecordClick"); })
+
+        .ToolbarSettings(toolbar =>
+        {
+            toolbar.ShowToolbar().ToolbarItems(items =>
+            {
+
+            });
+            toolbar.CustomToolbarItems(new List<object>() {
+                new Syncfusion.JavaScript.Models.CustomToolbarItem() { TemplateID = "#Refresh"}
+            });
+        })
+        )
+        <style type="text/css" class="cssStyles">
+
+            .view:before {
+                content: "\e677";
+            }
+        </style>
+        <script id="Refresh" type="text/x-jsrender">
+            
+            <button type="button" class="btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-eye-open gr-view" aria-hidden="true"></span>
+            </button>
+        </script>
+
+        <script type="text/javascript">
+            function onToolBarClick(args) {
+
+                var tbarObj = $(args.target), grid = this;
+                console.log(tbarObj);
+
+                if (tbarObj.hasClass("gr-view")) {
+                    var selectedrecords = grid.getSelectedRecords();
+
+                    for (let value of selectedrecords) {
+
+                        var url = '@Url.Action("Details", "GroupModels")';
+                        var groupID = value.DashboardGroupViewModelId;
+
+                        console.log(value);
+                    }
+                    if (groupID) location.href = url + '/' + groupID;
+                    
+
+                } else { }; //refresh content using grid instance
+
+
+
+
+
+                console.log(selectedrecords);
+            
+
+
+    }
+
+
+        </script>
+
+       
+
+        
+    </div>
+</div>

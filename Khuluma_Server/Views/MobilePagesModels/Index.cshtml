@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Khuluma_Server.Models.MobilePagesModel>
+
+@{
+    ViewBag.Title = "Mobile App Pages";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PageTitle)
+        </th>
+        
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PageTitle)
+        </td>
+       
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.PageId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.PageId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.PageId })
+        </td>
+    </tr>
+}
+
+</table>

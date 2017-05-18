@@ -1,0 +1,142 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/ej/web/bootstrap-theme/ej.web.all.min.css")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div class="navbar navbar-fixed-top">
+        <div class="container">
+
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="@Url.Action("Index", "Home")" style="margin-right:5px;">
+                    <img src="@Url.Content("~/Content/images/khuluma-serv-logo.png")" />
+                </a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li role="presentation" class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                    Data <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+
+                                    <li>@Html.ActionLink("Users", "Index", "AppUserModels")</li>
+                                    <li>@Html.ActionLink("Groups", "Index", "GroupModels")</li>
+                                    <li>@Html.ActionLink("Locations", "Index", "LocationModels")</li>
+
+                                    <li role="separator" class="divider"></li>
+                                    <li>@Html.ActionLink("Auto Messages", "Index", "PredefinedMessageModels")</li>
+                                    <li>@Html.ActionLink("Flagged Content", "Index", "FlaggedContentModels")</li>
+                                    
+                                    <li role="separator" class="divider"></li>
+                                    <li>@Html.ActionLink("Mobile Pages", "Index", "MobilePagesModels")</li>
+                                    <li role="separator" class="divider"></li>
+
+                                </ul>
+                            
+                            </li>
+
+                            <li role="presentation" class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                    + <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Add User", "Create", "AppUserModels")</li>
+                                    <li>@Html.ActionLink("Add Group", "Create", "GroupModels")</li>
+                                    <li>@Html.ActionLink("Add Location", "Create", "LocationModels")</li>
+                                    <li role="separator" class="divider"></li>
+                                    <li>@Html.ActionLink("Add Auto Message", "Create", "PredefinedMessageModels")</li>
+                                    <li>@Html.ActionLink("Add Flagged Content", "Create", "FlaggedContentModels")</li>
+                                    
+                                    <li role="separator" class="divider"></li>
+                                    <li>@Html.ActionLink("Add Mobile Page", "Create", "MobilePagesModels")</li>
+                                    <li role="separator" class="divider"></li>
+
+                                </ul>
+
+                            </li>
+
+                            <li role="presentation" class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                    Reports <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Chat Messages", "Index", "ChatMessages")</li>
+                                    
+                                </ul>
+
+                            </li>
+
+
+
+
+                        }
+
+                    
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Khuluma Server</p>
+        </footer>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyB_yi5FxyXC-6GNybxmSpi8kQ0ziKkaTJc",
+            authDomain: "khuluma-notifications.firebaseapp.com",
+            databaseURL: "https://khuluma-notifications.firebaseio.com",
+            projectId: "khuluma-notifications",
+            storageBucket: "khuluma-notifications.appspot.com",
+            messagingSenderId: "950612846979"
+        };
+        firebase.initializeApp(config);
+    </script>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/jsrender.min.js")
+    @Scripts.Render("~/Scripts/ej/web/ej.web.all.min.js")
+    
+    @RenderSection("scripts", required: false)
+    @Html.EJ().ScriptManager()
+
+    <!-- TinyMCE Script Reference -->
+    <script src="~/tinymce/tinymce.min.js"></script>
+    <script type="text/javascript">
+        // Initialize your tinyMCE Editor with your preferred options
+        tinymce.init({
+            selector: '.khtinymce',
+            height: 500,
+            menubar: false,
+            plugins: [
+                'advlist autolink lists link image charmap print preview anchor',
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime media table contextmenu paste code'
+            ],
+            toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+            content_css: '//www.tinymce.com/css/codepen.min.css'
+        });
+    </script>
+</body>
+</html>
