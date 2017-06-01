@@ -22,29 +22,40 @@ namespace Khuluma_Server.Controllers
     public class ChatMessagesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        //public IEnumerable<ChatMessageViewModel> messageList;
+        public List<ChatMessage> messageList;
+        public List<ChatMessageViewModel> messageListVM;
+        public List<AppUserModel> appUserList;
+        AppUserModel user;
+        ChatMessageViewModel chatItem;
 
         // GET: ChatMessages
         public ActionResult Index()
         {
+            messageListVM = new List<ChatMessageViewModel>();
+
+            messageList = db.ChatMessages.ToList();
+            appUserList = db.AppUserModels.ToList();
+            ChatMessageViewModel chatMessage = new ChatMessageViewModel(); ;
+            foreach (ChatMessage u in messageList)
+            {
+                user = appUserList.Find(x => x.ID == u.UserId);
+                chatItem = new ChatMessageViewModel();
+                chatItem.Id = u.ChatId;
+                chatItem.Date = u.TimeStamp.ToShortDateString();
+                chatItem.Time = u.TimeStamp.ToLongTimeString();
+                chatItem.Name = u.Name;
+                chatItem.Message = u.Message;
+                chatItem.isFlagged = u.isFlagged;
+                chatItem.UserName = user.Name;
+                chatItem.GroupName = user.Group.GroupName;
+
+                messageListVM.Add(chatItem);
+
+            }
 
 
-            var messageList = from u in new ApplicationDbContext().ChatMessages
-                           select new ChatMessageViewModel
-                           {
-                                Id = u.ChatId,
-                                UserId = u.UserId,
-                                GroupId = u.GroupId,
-                                Date = u.Date,
-                                Time = u.Time,
-                                Name = u.Name,
-                                Message = u.Message,
-                                isFlagged = u.isFlagged
-                                
 
-                            };
-
-            return View(messageList.ToList());
+            return View(messageListVM.ToList());
 
             //return View(db.ChatMessages.ToList());
         }
@@ -55,21 +66,32 @@ namespace Khuluma_Server.Controllers
 
             ExcelExport exp = new ExcelExport();
 
-            //var DataSource = db.ChatMessages.ToList();
+            messageListVM = new List<ChatMessageViewModel>();
 
-            var messageList = from u in new ApplicationDbContext().ChatMessages
-                              select new ChatMessageViewModel
-                              {
-                                  Id = u.ChatId,
-                                  UserId = u.UserId,
-                                  GroupId = u.GroupId,
-                                  Date = u.Date,
-                                  Time = u.Time,
-                                  Name = u.Name,
-                                  Message = u.Message
+            messageList = db.ChatMessages.ToList();
+            appUserList = db.AppUserModels.ToList();
+            ChatMessageViewModel chatMessage = new ChatMessageViewModel(); ;
+            foreach (ChatMessage u in messageList)
+            {
+                user = appUserList.Find(x => x.ID == u.UserId);
+                chatItem = new ChatMessageViewModel();
+                chatItem.Id = u.ChatId;
+                chatItem.Date = u.TimeStamp.ToShortDateString();
+                chatItem.Time = u.TimeStamp.ToLongTimeString();
+                chatItem.Name = u.Name;
+                chatItem.Message = u.Message;
+                chatItem.isFlagged = u.isFlagged;
+                chatItem.UserName = user.Name;
+                chatItem.GroupName = user.Group.GroupName;
 
-                              };
-            var DataSource = messageList.ToList();
+                messageListVM.Add(chatItem);
+
+            }
+
+
+
+
+            var DataSource = messageListVM.ToList();
             GridProperties obj = (GridProperties)Syncfusion.JavaScript.Utils.DeserializeToModel(typeof(GridProperties), GridModel);
 
             exp.Export(obj, DataSource, "Export.xlsx", ExcelVersion.Excel2010, false, false, "flat-saffron");

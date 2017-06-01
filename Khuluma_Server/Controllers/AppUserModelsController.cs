@@ -16,15 +16,72 @@ namespace Khuluma_Server.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         private List<AppUserModel> appUsers = new List<AppUserModel>();
-        //public IEnumerable<UserViewModel> userList;
+        public List<UserViewModel> appUsersVM = new List<UserViewModel>();
+        
 
         // GET: AppUserModels
         public ActionResult Index()
         {
-            
-           
+            int totalFlaggedMessages;
+            int totalMessages;
+            string locationName = "none";
+            string groupName = "none";
+            List<ChatMessage> messageList;
+            appUsers = db.AppUserModels.ToList();
+            List<ChatMessage> flaggedMessages;
 
-            var userList = from u in new ApplicationDbContext().AppUserModels
+            foreach (AppUserModel u in appUsers)
+            {
+                //List<AppUserModel> appUsersList = db.AppUserModels.Where(x => x.GroupId == groupModel.ID).ToList();
+                messageList = db.ChatMessages.Where(x => x.UserId == u.ID).ToList();
+                totalMessages = messageList.Count();
+                flaggedMessages = messageList.Where(i => i.isFlagged == true).ToList();
+
+                if (flaggedMessages.Count() >0)
+                {
+                    totalFlaggedMessages = flaggedMessages.Count();
+                } else
+                {
+                    totalFlaggedMessages = 0;
+                }
+                if (messageList.Count() > 0)
+                {
+                    totalMessages = messageList.Count();
+                } else
+                {
+                    totalMessages = 0;
+                }
+                if (u.Group != null)
+                {
+                    groupName = u.Group.GroupName;
+                }
+                if (u.Location != null)
+                {
+                    locationName = u.Location.HospitalName;
+                }
+                
+                try
+                {
+                    appUsersVM.Add(new UserViewModel()
+                    {
+                        ID = u.ID,
+                        Username = u.Username,
+                        Name = u.Name,
+                        Surname = u.Surname,
+                        LocationName = locationName,
+                        GroupName = groupName,
+                        TotalMessages = totalMessages,
+                        TotalFlaggedMessages = totalFlaggedMessages
+                    });
+
+                } catch(Exception e)
+                {
+
+                }
+               
+            }
+
+            /*var userList = from u in new ApplicationDbContext().AppUserModels
                         select new UserViewModel
                         {
                             ID = u.ID,
@@ -34,9 +91,9 @@ namespace Khuluma_Server.Controllers
                             ParticipantId = u.ParticipantId,
                             LocationName = u.Location.HospitalName,
                             GroupName = u.Group.GroupName
-                        };
+                        };*/
             
-            return View(userList.ToList());
+            return View(appUsersVM.ToList());
 
         }
 

@@ -1,10 +1,8 @@
 ﻿@model List<Khuluma_Server.Models.ViewModels.UserViewModel>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Users";
 }
-
-<h2>Application Users</h2>
 
 
 
@@ -13,7 +11,13 @@
         .AllowPaging()
         .AllowGrouping()
         .AllowFiltering()
-
+        .AllowSorting()
+        .AllowTextWrap()
+        .AllowResizeToFit()
+        .ContextMenuSettings(contextMenu =>
+        {
+            contextMenu.EnableContextMenu();
+        })
         .FilterSettings(d => d.FilterType(FilterType.FilterBar))
         .AllowSelection()
         .SelectionType(SelectionType.Single)
@@ -40,7 +44,7 @@
 <script id="Refresh" type="text/x-jsrender">
 
     <button type="button" class="btn btn-default btn-sm">
-        <span class="glyphicon glyphicon-eye-open gr-view" aria-hidden="true"></span>
+        <span class="gr-view">VIEW</span>
     </button>
 </script>
 
@@ -60,7 +64,12 @@
 
                         console.log(value);
                     }
-                    if (appUserID) location.href = url + '/' + appUserID;
+                    if (appUserID) {
+                        location.href = url + '/' + appUserID;
+                    } else {
+                        console.log("none selected");
+                        alert("Please select a user");
+                    };
 
 
                 } else { }; //refresh content using grid instance

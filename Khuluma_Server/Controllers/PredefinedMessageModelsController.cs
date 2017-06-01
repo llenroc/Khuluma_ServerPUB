@@ -14,22 +14,53 @@ namespace Khuluma_Server.Controllers
     [Authorize]
     public class PredefinedMessageModelsController : Controller
     {
+        public List<PredefinedMessageModel> messageList;
+        public List<AutoMessageViewModel> messageListVM;
         private ApplicationDbContext db = new ApplicationDbContext();
+        private AutoMessageViewModel autoMessage;
         //public IEnumerable<AutoMessageViewModel> messageList;
 
         // GET: PredefinedMessageModels
         public ActionResult Index()
         {
-            var messageList = from u in new ApplicationDbContext().PredefinedMessageModels
+            string timeHour;
+            string groupName;
+            int groupId;
+            
+            messageList = new List<PredefinedMessageModel>();
+            messageListVM = new List<AutoMessageViewModel>();
+
+            messageList = db.PredefinedMessageModels.ToList();
+
+            foreach (PredefinedMessageModel msg in messageList)
+            {
+                autoMessage = new AutoMessageViewModel();
+
+                timeHour = msg.time.ToShortTimeString();
+                groupName = msg.Group.GroupName;
+                groupId = msg.Group.ID;
+
+                autoMessage.AutoMessageId = msg.ID;
+                autoMessage.MessageText = msg.MessageText;
+                autoMessage.time = timeHour;
+                autoMessage.GroupName = groupName;
+                autoMessage.GroupId = groupId;
+
+                messageListVM.Add(autoMessage);
+            }
+
+            /*var messageList = from u in new ApplicationDbContext().PredefinedMessageModels
                            select new AutoMessageViewModel
                            {
                                MessageText = u.MessageText,
                                GroupId = u.GroupId,
-                               GroupName = u.Group.GroupName
-                           };
+                               GroupName = u.Group.GroupName,
+                               AutoMessageId = u.ID,
+                               time = u.time.
+                           };*/
 
             //var predefinedMessageModels = db.PredefinedMessageModels.Include(p => p.Group);
-            return View(messageList.ToList());
+            return View(messageListVM.ToList());
         }
 
         // GET: PredefinedMessageModels/Details/5

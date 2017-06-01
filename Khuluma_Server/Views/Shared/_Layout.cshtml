@@ -35,7 +35,7 @@
                                 <ul class="dropdown-menu">
 
                                     <li>@Html.ActionLink("Users", "Index", "AppUserModels")</li>
-                                    <li>@Html.ActionLink("Groups", "Index", "GroupModels")</li>
+                                    <li>@Html.ActionLink("Groups", "Index", "Home")</li>
                                     <li>@Html.ActionLink("Locations", "Index", "LocationModels")</li>
 
                                     <li role="separator" class="divider"></li>
@@ -93,10 +93,17 @@
         </div>
     </div>
     <div class="container body-content">
+
+        <div class="page-header">
+            <h1>@ViewBag.Title</h1>
+        </div>
+
+       
+
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Khuluma Server</p>
+            <p>&copy; @DateTime.Now.Year - Khuluma Server - @DateTime.UtcNow.AddHours(2.0).ToLongDateString() @DateTime.UtcNow.AddHours(2.0).ToShortTimeString()</p>
         </footer>
     </div>
 

@@ -16,6 +16,9 @@ namespace Khuluma_Server.Controllers
         public List<DashboardGroupViewModel> dashboardGroupViewModelList;
         private List<AppUserModel> appUsersList;
         private List<ChatMessage> chatMessagesList;
+        ChatMessage lastMessage;
+        String timeofLastMessage;
+        int lastIndex;
 
         public ActionResult Index()
         {
@@ -29,13 +32,23 @@ namespace Khuluma_Server.Controllers
             {
                 appUsersList = db.AppUserModels.Where(x => x.GroupId == group.ID).ToList();
                 chatMessagesList = db.ChatMessages.Where(x => x.GroupId == group.ID).ToList();
-                int lastIndex = chatMessagesList.Count - 1;
-                ChatMessage lastMessage = chatMessagesList.ElementAt(lastIndex);
-                String timeofLastMessage = lastMessage.TimeStamp.ToString();
+
+                if (chatMessagesList.Count()>0)
+                {
+                    lastIndex = chatMessagesList.Count - 1;
+                    lastMessage = chatMessagesList.ElementAt(lastIndex);
+                    timeofLastMessage = lastMessage.TimeStamp.ToString();
+                } else
+                {
+                    timeofLastMessage = "No messages yet";
+                }
+
+               
 
                 dashboardGroupViewModelList.Add(new DashboardGroupViewModel()
                 {
-                    
+
+                    DashboardGroupViewModelId = group.ID,
                     GroupName = group.GroupName,
                     TotalMembers = appUsersList.Count(),
                     TotalMessages = chatMessagesList.Count(),
@@ -76,8 +89,7 @@ namespace Khuluma_Server.Controllers
                               select new ChatMessageViewModel
                               {
                                   Id = u.ChatId,
-                                  UserId = u.UserId,
-                                  GroupId = u.GroupId,
+                                 
                                   Date = u.Date,
                                   Time = u.Time,
                                   Name = u.Name,

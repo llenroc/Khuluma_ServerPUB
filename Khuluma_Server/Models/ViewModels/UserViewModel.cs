@@ -18,13 +18,14 @@ namespace Khuluma_Server.Models.ViewModels
         public string Name { get; set; }
 
         public string Surname { get; set; }
-
-
-        [Display(Name = "Participant ID")]
-        public string ParticipantId { get; set; }
-
+        [Display(Name = "Location")]
         public string LocationName { get; set; }
+        [Display(Name = "Group")]
         public string GroupName { get; set; }
+        [Display(Name = "Total Messages")]
+        public int TotalMessages { get; set; }
+        [Display(Name = "Total Flagged Messages")]
+        public int TotalFlaggedMessages {get; set;}
 
     }
 }

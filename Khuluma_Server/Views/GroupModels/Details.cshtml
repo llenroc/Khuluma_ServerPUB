@@ -1,10 +1,9 @@
 ﻿@model Khuluma_Server.Models.ViewModels.GroupDetailsViewModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Group Details";
 }
 
-<h2>Group Details</h2>
 
 <div>
     <h4>@Html.DisplayFor(model => model.GroupName)</h4>
@@ -15,7 +14,7 @@
 
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#members" aria-controls="members" role="tab" data-toggle="tab">Members</a></li>
+                <li role="presentation" class="active"><a href="#members" aria-controls="members" role="tab" data-toggle="tab">Users</a></li>
                 <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
             </ul>
 
@@ -30,6 +29,8 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Name</th>
+                                    <th>Surname</th>
+                                    <th>Username</th>
                                     <th>Location</th>
 
                                 </tr>
@@ -38,9 +39,11 @@
                                 @foreach (var member in Model.GroupMembers)
                                 {
                                     <tr>
-                                        <td>@member.ParticipantId</td>
+                                        <td>@member.ID</td>
                                         <td>@member.Name</td>
-                                        <td>@member.Location</td>
+                                        <td>@member.Surname</td>
+                                        <td>@member.Username</td>
+                                        <td>@member.Location.HospitalName</td>
                                         <td>@Html.ActionLink("View", "Details", "AppUserModels", new { id = member.ID }, null)</td>
                                     </tr>
 

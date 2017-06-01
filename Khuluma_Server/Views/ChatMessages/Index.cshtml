@@ -1,10 +1,9 @@
 ﻿@model IEnumerable<Khuluma_Server.Models.ViewModels.ChatMessageViewModel>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Chat Message Report";
 }
 
-<h2>Report: Chat Messages</h2>
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -13,13 +12,20 @@
                     .Datasource((IEnumerable<Khuluma_Server.Models.ViewModels.ChatMessageViewModel>)Model)
                     .AllowGrouping()
                     .AllowFiltering()
+                    .AllowSorting()
+                    .AllowTextWrap()
+                    .AllowResizeToFit()
+                    .ContextMenuSettings(contextMenu =>
+                    {
+                        contextMenu.EnableContextMenu();
+                    })
                     .FilterSettings(d => d.FilterType(FilterType.FilterBar))
                      .ToolbarSettings(toolBar => toolBar.ShowToolbar().ToolbarItems(items =>
 
                      {
                          items.AddTool(ToolBarItems.Search);
                          items.AddTool(ToolBarItems.ExcelExport);
-                         
+
                          //items.AddTool(ToolBarItems.WordExport);
 
                          //items.AddTool(ToolBarItems.PdfExport);
@@ -27,6 +33,9 @@
                      }))
                      .Mappers(map => map.ExportToExcelAction("ChatMessages/ExcelAction"))
             )
+
+           
+           
 
         </div>
     </div>

@@ -8,7 +8,8 @@ namespace Khuluma_Server.Models.ViewModels
 {
     public class DashboardGroupViewModel
     {
-        //public int DashboardGroupViewModelId { get; set; }
+        [Display(Name = "Group ID")]
+        public int DashboardGroupViewModelId { get; set; }
 
         [Display(Name = "Group")]
         public string GroupName { get; set; }

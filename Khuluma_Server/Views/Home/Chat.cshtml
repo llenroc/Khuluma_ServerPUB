@@ -1,18 +1,43 @@
 ﻿@model List<Khuluma_Server.Models.ViewModels.ChatMessageViewModel>
 @{
-    ViewBag.Title = "Chat";
+    ViewBag.Title = "Group Chat";
 }
 
-<h2>Chat</h2>
 
 <div class="row">
-    @foreach (var item in Model)
-    {
-        <div class="col-sm-12">
-            <p>@item.Date @item.Time<br />
-            <strong>@item.Name : </strong>@item.Message</p>
-        </div>
-    }
+  <div class="col-sm-12">
+
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>User</th>
+                <th>Message</th>
+
+
+            </tr>
+        </thead>
+        <tbody id="discussion">
+
+            @foreach (var item in Model)
+            {
+
+                <tr>
+                    <td>@item.Date</td>
+                    <td>@item.Time</td>
+                    <td>@item.Name</td>
+                    <td>@item.Message</td>
+
+                </tr>
+
+            }
+
+           
+        </tbody>
+        </table>
+    </div>
 </div>
 
     
@@ -22,7 +47,8 @@
     <input type="text" id="message" />
     <input type="button" id="sendmessage" value="Send" />
     <input type="hidden" id="displayname" />
-    <ul id="discussion"></ul>
+    
+
 </div>
 @section scripts {
     <!--Script references. -->
@@ -40,16 +66,24 @@
             var thisgroupName = "@ViewBag.GroupName";
             var thisgroupID = "@ViewBag.GroupId";
             var userid = 0;
+            var groupid = 0;
+            var userid = 0;
+            var time = [];
             // Create a function that the hub can call back to display messages.
             chat.client.addNewMessageToPage = function (name, message, timestamp, idVals) {
                 // Add the message to the page.
-
-                var groupid = idVals[0];
-                var userid = idVals[1];
-
+                time = timestamp.split("T");
+                time = time[1].split(".");
+                groupid = idVals[0];
+                userid = idVals[1];
+                
                 if (groupid == thisgroupID) {
-                    $('#discussion').append(htmlEncode(timestamp) + '<li><strong>' + htmlEncode(name)
-                        + '</strong>: ' + htmlEncode(message) + '</li>');
+                    $('#discussion').append('<tr><td colspan="2">' + time[0] + '</td>' +
+                        
+                        '<td>' + htmlEncode(name) + '</td>' +
+                        '<td> ' + htmlEncode(message) + '</td>' +
+
+                        '</tr>');
                 }
 
                 

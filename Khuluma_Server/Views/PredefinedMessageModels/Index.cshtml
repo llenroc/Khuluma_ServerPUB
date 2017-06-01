@@ -1,17 +1,19 @@
 ﻿@model IEnumerable<Khuluma_Server.Models.ViewModels.AutoMessageViewModel>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Automated Messages";
 }
-
-<h2>Automated Messages</h2>
 
 @(Html.EJ().Grid<Khuluma_Server.Models.ViewModels.AutoMessageViewModel>("Grid")
         .Datasource((IEnumerable<Khuluma_Server.Models.ViewModels.AutoMessageViewModel>)Model)
         .AllowPaging()
         .AllowGrouping()
         .AllowFiltering()
-
+        .AllowResizeToFit()
+        .ContextMenuSettings(contextMenu =>
+        {
+            contextMenu.EnableContextMenu();
+        })
         .FilterSettings(d => d.FilterType(FilterType.FilterBar))
         .AllowSelection()
         .SelectionType(SelectionType.Single)
@@ -37,8 +39,17 @@
 </style>
 <script id="Refresh" type="text/x-jsrender">
 
-    <button type="button" class="btn btn-default btn-sm" id="autosend-button">
-        <span class="glyphicon glyphicon-play-circle gr-send" aria-hidden="true"></span>
+
+    <button type="button" class="btn btn-default btn-sm">
+        <span class="gr-send">SEND NOW</span>
+    </button>
+
+    <button type="button" class="btn btn-default btn-sm">
+        <span class="gr-edit">EDIT</span>
+    </button>
+
+    <button type="button" class="btn btn-default btn-sm">
+        <span class="gr-delete">DELETE</span>
     </button>
     
 </script>
@@ -53,7 +64,7 @@
         var tbarObj = $(args.target), grid = this;
         console.log(tbarObj);
         var selectedrecords = grid.getSelectedRecords();
-        
+
             console.log("GR SEND");
             console.log(selectedrecords);
 
@@ -68,19 +79,69 @@
             $("#message").val(messageText);
             $("#groupid").val(thisgroupID);
             $("#groupname").val(thisgroupName);
-                
+
                 console.log("Load Data");
 
-       
+
 
         console.log(selectedrecords);
     }
     function onToolBarClick(args) {
-        
+
+        var newWindow = false;
+                var url = "";
+                var tbarObj = $(args.target), grid = this;
+                
+                console.log(tbarObj);
+
+                var selectedrecords = grid.getSelectedRecords();
+
+                for (let value of selectedrecords) {
+                    console.log("VALUE: " + value);
+                    var autoMessageID = value.AutoMessageId;
+                    console.log("value.Dashboard" + value.DashboardGroupViewModelId);
+                    console.log(value);
+                }
+
+                //Get Button class
+                if (tbarObj.hasClass("gr-send")) {
+                    
+                };
+
+
+                if (tbarObj.hasClass("gr-edit")) {
+                    console.log("In gr-edit");
+                    url = '@Url.Action("Edit", "PredefinedMessageModels")';
+                };
+
+                if (tbarObj.hasClass("gr-delete")) {
+                    console.log("In gr-delete");
+                    url = '@Url.Action("Delete", "PredefinedMessageModels")';
+                };
+
+                //Check for ID and redirect
+                if (autoMessageID) {
+
+                    if (newWindow == true)
+                    {
+                        window.open(url + '/' + autoMessageID, '_blank');
+                    } else {
+                        location.href = url + '/' + autoMessageID;
+                    }
+
+
+                } else {
+                    console.log("none selected");
+                    alert("Please select an auto message");
+                }
+
+
+
+                console.log(selectedrecords);
 
     }
 
-        
+
 </script>
 
 <div class="container">

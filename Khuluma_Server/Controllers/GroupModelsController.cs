@@ -59,11 +59,13 @@ namespace Khuluma_Server.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,GroupName,Active,NumberofMembers")] GroupModel groupModel)
         {
+            groupModel.Active = true;
+            groupModel.NumberofMembers = 0;
             if (ModelState.IsValid)
             {
                 db.GroupModels.Add(groupModel);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
 
             return View(groupModel);
@@ -91,11 +93,13 @@ namespace Khuluma_Server.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,GroupName,Active,NumberofMembers")] GroupModel groupModel)
         {
+            groupModel.NumberofMembers = 0;
+            groupModel.Active = true;
             if (ModelState.IsValid)
             {
                 db.Entry(groupModel).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
             return View(groupModel);
         }
@@ -123,7 +127,7 @@ namespace Khuluma_Server.Controllers
             GroupModel groupModel = db.GroupModels.Find(id);
             db.GroupModels.Remove(groupModel);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
 
         protected override void Dispose(bool disposing)

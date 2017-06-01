@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -14,12 +15,12 @@ namespace Khuluma_Server.Models.ViewModels
         }
         public int Id { get; set; }
 
-        public int UserId { get; set; }
-
+        //public int UserId { get; set; }
+        [Display(Name = "User")]
         public string UserName { get; set; }
 
-        public int GroupId { get; set; }
-
+        //public int GroupId { get; set; }
+        [Display(Name = "Group")]
         public string GroupName { get; set; }
 
         public string Date { get; set; }

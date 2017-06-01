@@ -1,9 +1,12 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Groups";
 }
 
-
-
+<!-- ********* -->
+<!-- ********* -->
+<!-- DASHBOARD -->
+<!-- ********* -->
+<!-- ********* -->
 <div class="row">
     <div class="col-md-12">
         
@@ -12,7 +15,12 @@
         .AllowPaging()
         .AllowGrouping()
         .AllowFiltering()
-
+        .AllowSorting()
+        .AllowResizeToFit()
+        .ContextMenuSettings(contextMenu =>
+        {
+            contextMenu.EnableContextMenu();
+        })
         .FilterSettings(d => d.FilterType(FilterType.FilterBar))
         .AllowSelection()
         .SelectionType(SelectionType.Single)
@@ -27,7 +35,7 @@
 
             });
             toolbar.CustomToolbarItems(new List<object>() {
-                new Syncfusion.JavaScript.Models.CustomToolbarItem() { TemplateID = "#Refresh"}
+                new Syncfusion.JavaScript.Models.CustomToolbarItem() { TemplateID = "#View"}
             });
         })
         )
@@ -37,40 +45,84 @@
                 content: "\e677";
             }
         </style>
-        <script id="Refresh" type="text/x-jsrender">
+        <script id="View" type="text/x-jsrender">
             
             <button type="button" class="btn btn-default btn-sm">
-                <span class="glyphicon glyphicon-eye-open gr-view" aria-hidden="true"></span>
+                <span class="gr-view">VIEW</span>
             </button>
+
+            <button type="button" class="btn btn-default btn-sm">
+                <span class="gr-chat">JOIN CHAT</span>
+            </button>
+
+            <button type="button" class="btn btn-default btn-sm">
+                <span class="gr-edit">EDIT</span>
+            </button>
+
+            <button type="button" class="btn btn-default btn-sm">
+                <span class="gr-delete">DELETE</span>
+            </button>
+
         </script>
 
         <script type="text/javascript">
             function onToolBarClick(args) {
-
+                var newWindow = false;
+                var url = "";
                 var tbarObj = $(args.target), grid = this;
                 console.log(tbarObj);
 
+                var selectedrecords = grid.getSelectedRecords();
+
+                for (let value of selectedrecords) {
+
+                    var groupID = value.DashboardGroupViewModelId;
+                    console.log("value.Dashboard" + value.DashboardGroupViewModelId);
+                    console.log(value);
+                }
+
+                //Get Button class
                 if (tbarObj.hasClass("gr-view")) {
-                    var selectedrecords = grid.getSelectedRecords();
+                    console.log("In gr-view");
+                    url = '@Url.Action("Details", "GroupModels")';
+                };
 
-                    for (let value of selectedrecords) {
+                if (tbarObj.hasClass("gr-chat")) {
+                    console.log("In gr-chat");
+                    url = '@Url.Action("Chat", "Home")';
+                    newWindow = true;
+                };
 
-                        var url = '@Url.Action("Details", "GroupModels")';
-                        var groupID = value.DashboardGroupViewModelId;
+                if (tbarObj.hasClass("gr-edit")) {
+                    console.log("In gr-edit");
+                    url = '@Url.Action("Edit", "GroupModels")';
+                };
 
-                        console.log(value);
+                if (tbarObj.hasClass("gr-delete")) {
+                    console.log("In gr-delete");
+                    url = '@Url.Action("Delete", "GroupModels")';
+                };
+
+                //Check for ID and redirect
+                if (groupID) {
+
+                    if (newWindow == true)
+                    {
+                        window.open(url + '/' + groupID, '_blank');
+                    } else {
+                        location.href = url + '/' + groupID;
                     }
-                    if (groupID) location.href = url + '/' + groupID;
+
                     
-
-                } else { }; //refresh content using grid instance
-
-
+                } else {
+                    console.log("none selected");
+                    alert("Please select a group");
+                }
 
 
 
                 console.log(selectedrecords);
-            
+
 
 
     }
