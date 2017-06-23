@@ -32,6 +32,7 @@ namespace Khuluma_Server.Controllers
         public ActionResult Index()
         {
             messageListVM = new List<ChatMessageViewModel>();
+            messageList = new List<ChatMessage>();
 
             messageList = db.ChatMessages.ToList();
             appUserList = db.AppUserModels.ToList();

@@ -260,45 +260,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Hubs\ChatHub.cs" />
-    <Compile Include="Migrations\201704230915238_Initial.cs" />
-    <Compile Include="Migrations\201704230915238_Initial.Designer.cs">
-      <DependentUpon>201704230915238_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201704230928251_FlaggedContentModel.cs" />
-    <Compile Include="Migrations\201704230928251_FlaggedContentModel.Designer.cs">
-      <DependentUpon>201704230928251_FlaggedContentModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201704230938542_Controllers.cs" />
-    <Compile Include="Migrations\201704230938542_Controllers.Designer.cs">
-      <DependentUpon>201704230938542_Controllers.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201704231132024_User-Notes.cs" />
-    <Compile Include="Migrations\201704231132024_User-Notes.Designer.cs">
-      <DependentUpon>201704231132024_User-Notes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201704231209338_Proxy-Disable.cs" />
-    <Compile Include="Migrations\201704231209338_Proxy-Disable.Designer.cs">
-      <DependentUpon>201704231209338_Proxy-Disable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201704240951014_Explicit-001.cs" />
-    <Compile Include="Migrations\201704240951014_Explicit-001.Designer.cs">
-      <DependentUpon>201704240951014_Explicit-001.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705021624275_webAPI.cs" />
-    <Compile Include="Migrations\201705021624275_webAPI.Designer.cs">
-      <DependentUpon>201705021624275_webAPI.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705030807322_API-DB-Context.cs" />
-    <Compile Include="Migrations\201705030807322_API-DB-Context.Designer.cs">
-      <DependentUpon>201705030807322_API-DB-Context.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705041259479_AppUserModel-Gender-Field.cs" />
-    <Compile Include="Migrations\201705041259479_AppUserModel-Gender-Field.Designer.cs">
-      <DependentUpon>201705041259479_AppUserModel-Gender-Field.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705091425543_ChatModelFlagged.cs" />
-    <Compile Include="Migrations\201705091425543_ChatModelFlagged.Designer.cs">
-      <DependentUpon>201705091425543_ChatModelFlagged.cs</DependentUpon>
+    <Compile Include="Migrations\201706021313425_Initial-001.cs" />
+    <Compile Include="Migrations\201706021313425_Initial-001.Designer.cs">
+      <DependentUpon>201706021313425_Initial-001.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -321,11 +285,20 @@
     <Compile Include="Models\ViewModels\GroupDetailsViewModel.cs" />
     <Compile Include="Models\ViewModels\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="QuartzJobs\JobScheduler.cs" />
     <Compile Include="QuartzJobs\MessageJob.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\khserverlocal.mdf" />
+    <Content Include="App_Data\khserverlocal_log.ldf">
+      <DependentUpon>khserverlocal.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -671,7 +644,11 @@
     <None Include="job_scheduling_data_2_0.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Properties\PublishProfiles\KhulumaServer - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\KhulumaLive - Web Deploy.pubxml" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Scripts\ej\web\ej.web.all.min.intellisense.js" />
     <None Include="Scripts\ej\web\ej.web.all-vsdoc.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -986,42 +963,13 @@
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201704230915238_Initial.resx">
-      <DependentUpon>201704230915238_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201704230928251_FlaggedContentModel.resx">
-      <DependentUpon>201704230928251_FlaggedContentModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201704230938542_Controllers.resx">
-      <DependentUpon>201704230938542_Controllers.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201704231132024_User-Notes.resx">
-      <DependentUpon>201704231132024_User-Notes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201704231209338_Proxy-Disable.resx">
-      <DependentUpon>201704231209338_Proxy-Disable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201704240951014_Explicit-001.resx">
-      <DependentUpon>201704240951014_Explicit-001.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705021624275_webAPI.resx">
-      <DependentUpon>201705021624275_webAPI.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705030807322_API-DB-Context.resx">
-      <DependentUpon>201705030807322_API-DB-Context.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705041259479_AppUserModel-Gender-Field.resx">
-      <DependentUpon>201705041259479_AppUserModel-Gender-Field.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705091425543_ChatModelFlagged.resx">
-      <DependentUpon>201705091425543_ChatModelFlagged.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201706021313425_Initial-001.resx">
+      <DependentUpon>201706021313425_Initial-001.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

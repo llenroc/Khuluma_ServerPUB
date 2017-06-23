@@ -46,40 +46,77 @@
     <button type="button" class="btn btn-default btn-sm">
         <span class="gr-view">VIEW</span>
     </button>
+
+    <button type="button" class="btn btn-default btn-sm">
+        <span class="gr-edit">EDIT</span>
+    </button>
+
+    <button type="button" class="btn btn-default btn-sm">
+        <span class="gr-delete">DELETE</span>
+    </button>
+
 </script>
 
 <script type="text/javascript">
             function onToolBarClick(args) {
 
+                var newWindow = false;
+                var url = "";
                 var tbarObj = $(args.target), grid = this;
                 console.log(tbarObj);
 
+                var selectedrecords = grid.getSelectedRecords();
+
+                for (let value of selectedrecords) {
+
+                    var itemID = value.ID;
+                    console.log("value.Dashboard" + value.ID);
+                    console.log(value);
+                }
+
+                //Get Button class
                 if (tbarObj.hasClass("gr-view")) {
-                    var selectedrecords = grid.getSelectedRecords();
+                    console.log("In gr-view");
+                    url = '@Url.Action("Details", "AppUserModels")';
+                };
 
-                    for (let value of selectedrecords) {
 
-                        var url = '@Url.Action("Details", "AppUserModels")';
-                        var appUserID = value.ID;
 
-                        console.log(value);
-                    }
-                    if (appUserID) {
-                        location.href = url + '/' + appUserID;
+                if (tbarObj.hasClass("gr-edit")) {
+                    console.log("In gr-edit");
+                    url = '@Url.Action("Edit", "AppUserModels")';
+                };
+
+                if (tbarObj.hasClass("gr-delete")) {
+                    console.log("In gr-delete");
+                    url = '@Url.Action("Delete", "AppUserModels")';
+                };
+
+                //Check for ID and redirect
+                if (itemID) {
+
+                    if (newWindow == true)
+                    {
+                        window.open(url + '/' + itemID, '_blank');
                     } else {
-                        console.log("none selected");
-                        alert("Please select a user");
-                    };
+                        location.href = url + '/' + itemID;
+                    }
 
 
-                } else { }; //refresh content using grid instance
-
-
+                } else {
+                    console.log("none selected");
+                    alert("Please select a user");
+                }
 
 
 
                 console.log(selectedrecords);
 
+                //****************************************************
+                //****************************************************
+                //****************************************************
+
+       
 
 
     }

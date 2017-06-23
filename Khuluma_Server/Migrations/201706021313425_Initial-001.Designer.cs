@@ -7,13 +7,13 @@ namespace Khuluma_Server.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Explicit001 : IMigrationMetadata
+    public sealed partial class Initial001 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Explicit001));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial001));
         
         string IMigrationMetadata.Id
         {
-            get { return "201704240951014_Explicit-001"; }
+            get { return "201706021313425_Initial-001"; }
         }
         
         string IMigrationMetadata.Source
