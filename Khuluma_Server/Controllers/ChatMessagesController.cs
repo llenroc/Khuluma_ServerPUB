@@ -26,6 +26,8 @@ namespace Khuluma_Server.Controllers
         public List<ChatMessageViewModel> messageListVM;
         public List<AppUserModel> appUserList;
         AppUserModel user;
+        GroupModel group;
+        public List<GroupModel> groupList;
         ChatMessageViewModel chatItem;
 
         // GET: ChatMessages
@@ -36,19 +38,45 @@ namespace Khuluma_Server.Controllers
 
             messageList = db.ChatMessages.ToList();
             appUserList = db.AppUserModels.ToList();
-            ChatMessageViewModel chatMessage = new ChatMessageViewModel(); ;
+            groupList = db.GroupModels.ToList();
+            ChatMessageViewModel chatMessage = new ChatMessageViewModel();
+            
             foreach (ChatMessage u in messageList)
             {
-                user = appUserList.Find(x => x.ID == u.UserId);
                 chatItem = new ChatMessageViewModel();
+
+                user = appUserList.Find(x => x.ID == u.UserId);
+                group = groupList.Find(x => x.ID == u.GroupId);
+                
                 chatItem.Id = u.ChatId;
                 chatItem.Date = u.TimeStamp.ToShortDateString();
                 chatItem.Time = u.TimeStamp.ToLongTimeString();
                 chatItem.Name = u.Name;
                 chatItem.Message = u.Message;
                 chatItem.isFlagged = u.isFlagged;
-                chatItem.UserName = user.Name;
-                chatItem.GroupName = user.Group.GroupName;
+                
+
+                if (user != null)
+                {
+                    chatItem.UserName = user.Name;
+                     
+                } else
+                {
+                    chatItem.UserName = u.Name;
+                   
+                }
+
+                if (group != null)
+                {
+                    chatItem.GroupName = group.GroupName;
+
+                }
+                else
+                {
+                    chatItem.GroupName = "**deleted**";
+
+                }
+
 
                 messageListVM.Add(chatItem);
 
@@ -58,7 +86,7 @@ namespace Khuluma_Server.Controllers
 
             return View(messageListVM.ToList());
 
-            //return View(db.ChatMessages.ToList());
+            
         }
 
         public void ExcelAction(string GridModel)
@@ -71,19 +99,47 @@ namespace Khuluma_Server.Controllers
 
             messageList = db.ChatMessages.ToList();
             appUserList = db.AppUserModels.ToList();
-            ChatMessageViewModel chatMessage = new ChatMessageViewModel(); ;
+            groupList = db.GroupModels.ToList();
+
+            ChatMessageViewModel chatMessage = new ChatMessageViewModel();
+            
             foreach (ChatMessage u in messageList)
             {
-                user = appUserList.Find(x => x.ID == u.UserId);
                 chatItem = new ChatMessageViewModel();
+
+                user = appUserList.Find(x => x.ID == u.UserId);
+                group = groupList.Find(x => x.ID == u.GroupId);
+
                 chatItem.Id = u.ChatId;
                 chatItem.Date = u.TimeStamp.ToShortDateString();
                 chatItem.Time = u.TimeStamp.ToLongTimeString();
                 chatItem.Name = u.Name;
                 chatItem.Message = u.Message;
                 chatItem.isFlagged = u.isFlagged;
-                chatItem.UserName = user.Name;
-                chatItem.GroupName = user.Group.GroupName;
+
+
+                if (user != null)
+                {
+                    chatItem.UserName = user.Name;
+
+                }
+                else
+                {
+                    chatItem.UserName = u.Name;
+
+                }
+
+                if (group != null)
+                {
+                    chatItem.GroupName = group.GroupName;
+
+                }
+                else
+                {
+                    chatItem.GroupName = "**deleted**";
+
+                }
+
 
                 messageListVM.Add(chatItem);
 

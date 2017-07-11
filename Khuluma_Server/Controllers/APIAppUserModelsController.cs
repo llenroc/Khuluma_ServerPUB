@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using Khuluma_Server.Models;
 using Khuluma_Server.Models.apiModels;
+using System.Net.Http;
 
 namespace Khuluma_Server.Controllers
 {
@@ -77,7 +78,10 @@ namespace Khuluma_Server.Controllers
             {
                 return BadRequest(ModelState);
             }
-
+            if (db.AppUserModels.Any(x => x.Username == appUserModel.Username))
+            {
+                return Content(HttpStatusCode.Conflict, "Username already taken");
+            }
             db.AppUserModels.Add(appUserModel);
             db.SaveChanges();
 

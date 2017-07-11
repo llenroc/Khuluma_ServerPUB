@@ -260,9 +260,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Hubs\ChatHub.cs" />
-    <Compile Include="Migrations\201706021313425_Initial-001.cs" />
-    <Compile Include="Migrations\201706021313425_Initial-001.Designer.cs">
-      <DependentUpon>201706021313425_Initial-001.cs</DependentUpon>
+    <Compile Include="Migrations\201706291231157_Initial.cs" />
+    <Compile Include="Migrations\201706291231157_Initial.Designer.cs">
+      <DependentUpon>201706291231157_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -644,6 +644,7 @@
     <None Include="job_scheduling_data_2_0.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Properties\PublishProfiles\KhulumaLive - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\KhulumaLive - Web Deploy.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -963,14 +964,13 @@
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Content Include="packages.config" />
+    <EmbeddedResource Include="Migrations\201706291231157_Initial.resx">
+      <DependentUpon>201706291231157_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201706021313425_Initial-001.resx">
-      <DependentUpon>201706021313425_Initial-001.cs</DependentUpon>
-    </EmbeddedResource>
+    <Content Include="packages.config" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
